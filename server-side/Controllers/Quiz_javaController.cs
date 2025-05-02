@@ -24,7 +24,19 @@ namespace server_side.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Quiz_java>>> GetQuiz_java()
         {
-            return await _context.Quiz_java.ToListAsync();
+            var random6Q = await _context.Quiz_java
+                .Select(x => new
+                {
+                    x.QnId,
+                    x.QnInWords,
+                    x.ImageName,
+                    Option = new string[] { x.Option1, x.Option2, x.Option3, x.Option4 }
+                })
+                .OrderBy(x => Guid.NewGuid())  // Randomize order
+                .Take(6)  // Take only 6 questions
+                .ToListAsync();
+
+            return Ok(random6Q);  // Return the selected questions
         }
 
         // GET: api/Quiz_java/5
@@ -42,7 +54,6 @@ namespace server_side.Controllers
         }
 
         // PUT: api/Quiz_java/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutQuiz_java(int id, Quiz_java quiz_java)
         {
@@ -73,7 +84,25 @@ namespace server_side.Controllers
         }
 
         // POST: api/Quiz_java
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        [Route("GetAnswers_java")]
+        public async Task<ActionResult<Quiz_java>> GetAnswers_java([FromBody] int[] qnIds)
+        {
+            var answers = await _context.Quiz_java
+                .Where(x => qnIds.Contains(x.QnId))
+                .Select(y => new
+                {
+                    y.QnId,
+                    y.QnInWords,
+                    y.ImageName,
+                    Options = new string[] { y.Option1, y.Option2, y.Option3, y.Option4 },
+                    y.Answer
+                }).ToListAsync();
+
+            return Ok(answers);
+        }
+
+        // POST: api/Quiz_java (Create new quiz question)
         [HttpPost]
         public async Task<ActionResult<Quiz_java>> PostQuiz_java(Quiz_java quiz_java)
         {

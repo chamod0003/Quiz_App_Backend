@@ -44,7 +44,7 @@ namespace server_side.Controllers
         // PUT: api/Participant_c/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         // PUT: api/Participant_c/5
-        [HttpPut("{id}")]
+       /* [HttpPut("{id}")]
         public async Task<IActionResult> PutParticipant_c(int id, ParticipantRestult_c _participantRestult_c)
         {
             if (id != _participantRestult_c.ParticipantId)
@@ -82,7 +82,7 @@ namespace server_side.Controllers
 
             return NoContent();
         }
-
+        */
 
         // POST: api/Participant_c
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

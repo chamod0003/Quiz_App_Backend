@@ -67,35 +67,20 @@ namespace server_side.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Participant_java",
+                name: "ParticipantResult_c",
                 columns: table => new
                 {
-                    ParticipantId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    ParticipantId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
                     TimeTaken = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                    AttemptedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Participant_java", x => x.ParticipantId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Participants",
-                columns: table => new
-                {
-                    ParticipantId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    Score = table.Column<int>(type: "int", nullable: false),
-                    TimeTaken = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Participants", x => x.ParticipantId);
+                    table.PrimaryKey("PK_ParticipantResult_c", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -351,10 +336,7 @@ namespace server_side.Migrations
                 name: "Participant_c");
 
             migrationBuilder.DropTable(
-                name: "Participant_java");
-
-            migrationBuilder.DropTable(
-                name: "Participants");
+                name: "ParticipantResult_c");
 
             migrationBuilder.DropTable(
                 name: "Questions");

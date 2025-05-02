@@ -20,23 +20,20 @@ namespace server_side.Models
 
 
     }
-    public class ParticipantRestult_c
+    public class ParticipantResult_c
     {
-
+        public int Id { get; set; }
         public int ParticipantId { get; set; }
-
-
-        public int Score { get; set; }
-        public int TimeTaken
-        {
-            get; set;
-
-
-
-
-        }
         public int SubjectId { get; set; }
+        public int Score { get; set; }
+        public int TimeTaken { get; set; } // seconds
+        public DateTime AttemptedAt { get; set; }
+
+        [ForeignKey("SubjectId")]
+        public Subjects Subject { get; set; }
+
     }
+
 
 
 }

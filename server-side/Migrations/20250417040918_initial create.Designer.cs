@@ -12,7 +12,7 @@ using server_side.Models;
 namespace server_side.Migrations
 {
     [DbContext(typeof(QuizDbcontext))]
-    [Migration("20250311170458_initial create")]
+    [Migration("20250417040918_initial create")]
     partial class initialcreate
     {
         /// <inheritdoc />
@@ -244,17 +244,19 @@ namespace server_side.Migrations
                     b.ToTable("RegisteredUsers");
                 });
 
-            modelBuilder.Entity("server_side.Models.Participant", b =>
+            modelBuilder.Entity("server_side.Models.ParticipantResult_c", b =>
                 {
-                    b.Property<int>("ParticipantId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<DateTime>("AttemptedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ParticipantId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Score")
                         .HasColumnType("int");
@@ -265,9 +267,9 @@ namespace server_side.Migrations
                     b.Property<int>("TimeTaken")
                         .HasColumnType("int");
 
-                    b.HasKey("ParticipantId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Participants");
+                    b.ToTable("ParticipantResult_c");
                 });
 
             modelBuilder.Entity("server_side.Models.Participant_c", b =>
@@ -294,32 +296,6 @@ namespace server_side.Migrations
                     b.HasKey("ParticipantId");
 
                     b.ToTable("Participant_c");
-                });
-
-            modelBuilder.Entity("server_side.Models.Participant_java", b =>
-                {
-                    b.Property<int>("ParticipantId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantId"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TimeTaken")
-                        .HasColumnType("int");
-
-                    b.HasKey("ParticipantId");
-
-                    b.ToTable("Participant_java");
                 });
 
             modelBuilder.Entity("server_side.Models.Question", b =>
